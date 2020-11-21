@@ -1,7 +1,7 @@
 # 10k Hours
 An android app to keep track of the progress of you honing your skills, which take EXACTLY 10,000 hours to put you at the top 0.1% spot in the world.
 
-Current Version - 1.0
+Current Version - 0.0 (In Development)
 
 Current Status - 
 * Main Activity view pager is working as planned.
