@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sounakmondal.a10khours.R;
 
 public class TaskSelectorViewHolder extends RecyclerView.ViewHolder {
-    TextView taskName,hoursCompleted,hoursLeft;
+    TextView taskName,hoursCompleted,hoursLeft, buttonViewOption;
 
 
     public TaskSelectorViewHolder(@NonNull View itemView) {
@@ -17,6 +17,7 @@ public class TaskSelectorViewHolder extends RecyclerView.ViewHolder {
         taskName = itemView.findViewById(R.id.taskNameText);
         hoursCompleted = itemView.findViewById(R.id.hoursCompletedText);
         hoursLeft = itemView.findViewById(R.id.hoursLeftText);
+        buttonViewOption = itemView.findViewById(R.id.textViewOptions);
     }
 
     public TextView getTaskName() {
@@ -31,6 +32,10 @@ public class TaskSelectorViewHolder extends RecyclerView.ViewHolder {
         return hoursLeft;
     }
 
+    public TextView getButtonViewOption() {
+        return buttonViewOption;
+    }
+
     public void setTaskName(TextView taskName) {
         this.taskName = taskName;
     }
@@ -41,5 +46,9 @@ public class TaskSelectorViewHolder extends RecyclerView.ViewHolder {
 
     public void setHoursLeft(TextView hoursLeft) {
         this.hoursLeft = hoursLeft;
+    }
+
+    public void setButtonViewOption(TextView buttonViewOption) {
+        this.buttonViewOption = buttonViewOption;
     }
 }

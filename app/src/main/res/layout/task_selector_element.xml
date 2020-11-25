@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="35dp"
         android:textSize="12sp"
         android:text="Hours Completed"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="135dp"
         android:textSize="12sp"
         android:text="00000"
@@ -47,9 +47,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="70dp"
         android:textSize="12sp"
         android:text="Hours Left"
@@ -60,13 +60,26 @@
         android:id="@+id/hoursLeftText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="135dp"
         android:textSize="12sp"
         android:text="00000"
         />
+
+    <TextView
+        android:id="@+id/textViewOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="10dp"
+        android:text="&#8942;"
+        android:textAppearance="?android:textAppearanceLarge" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

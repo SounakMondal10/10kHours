@@ -31,6 +31,14 @@ public class Data implements Parcelable {
         return timeSpent;
     }
 
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public void setTimeSpent(int timeSpent) {
+        this.timeSpent = timeSpent;
+    }
+
     public static final Creator<Data> CREATOR = new Creator<Data>() {
         @Override
         public Data createFromParcel(Parcel in) {

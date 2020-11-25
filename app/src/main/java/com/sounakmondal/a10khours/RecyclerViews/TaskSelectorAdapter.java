@@ -2,51 +2,130 @@ package com.sounakmondal.a10khours.RecyclerViews;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sounakmondal.a10khours.Data;
+import com.sounakmondal.a10khours.Fragments.taskSelectorView;
+import com.sounakmondal.a10khours.MainActivity;
 import com.sounakmondal.a10khours.R;
-
 import java.util.ArrayList;
 
 public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHolder> {
-    ArrayList<Data> data;
+    private static ArrayList<Data> data1 = new ArrayList<>();;
+    Context mContext;
 
-    public ArrayList<Data> getData() {
-        return data;
-    }
 
     @NonNull
     @Override
     public TaskSelectorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        mContext = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         View rootView = inflater.inflate(R.layout.task_selector_element, parent, false);
         return new TaskSelectorViewHolder(rootView);
     }
 
-    public TaskSelectorAdapter(ArrayList<Data> data1)
+    public TaskSelectorAdapter(ArrayList<Data> data)
     {
-        data = data1;
+        data1 = data;
     }
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull TaskSelectorViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull final TaskSelectorViewHolder holder, final int position)
     {
         holder.getHoursCompleted().setText(Integer.toString(getData().get(position).getTimeSpent()));
         holder.getTaskName().setText(getData().get(position).getTaskName());
         holder.getHoursLeft().setText(hoursLeft(getData().get(position).getTimeSpent()));
+
+        holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(mContext, holder.buttonViewOption);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.task_element_menu);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.delete_optionID:
+                                removeData(position);
+                                taskSelectorView.newInstance();
+                                //handle menu1 click
+                                return true;
+                            case R.id.reset_optionID:
+                                resetData(position);
+                                taskSelectorView.newInstance();
+                                //handle menu2 click
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                //displaying the popup
+                popup.show();
+
+            }
+        });
     }
 
     public String hoursLeft(int hoursCompleted)
     {
         int hoursleft = 10000 - hoursCompleted;
         return Integer.toString(hoursleft);
+    }
+
+
+    public static ArrayList<Data> getData()
+
+    {
+//        ArrayList<Data> data = new ArrayList<>();
+//        for(int i=0; i<1; i++){
+//            data.add(new Data(
+//                    "Task Name - "+i,i
+//            ));
+//        }
+        return data1;
+    }
+
+    public ArrayList<Data> setData(String taskName)
+    {
+        data1.add(new Data(taskName, 0));
+
+        return data1;
+    }
+
+    public static ArrayList<Data> newData()
+    {
+        data1.add(new Data("taskName", 0));
+
+        return data1;
+    }
+    public static ArrayList<Data> resetData(int position)
+    {
+
+        String taskName = data1.get(position).getTaskName();
+        data1.get(position).setTimeSpent(0);
+
+        return data1;
+    }
+
+    public static ArrayList<Data> removeData(int position)
+    {
+
+        data1.remove(position);
+        //data.add(new Data(taskName, 0));
+        return data1;
     }
 
 
