@@ -9,12 +9,13 @@ Current Status -
 * 'Stats' activity is designed.
 * Button is placed.
 * Data parcelable is working as planned
+* 'New Task' button and Task menu options are working properly, but not immediately updating
+* Timer Layout is designed 
 
                  
 To Add/Do - 
-* Adding timer and designing 'Timer Layout'.
 * Remove the view pager and use the fragments as activities.
-* Button functionalities.
+* Rest of the button functionalities.
 * Storing/retrieving data from shared preferences (implementation only, as code is present for writing by converting arraylist to GSON -> GSON to JSON -> storing JSON, and reading by converting JSON to arraylist).
 * Refactoring/Decorating 'Task Selector' layout.
 * Adding a splash-screen and custom-made icon.
