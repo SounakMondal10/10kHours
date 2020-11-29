@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -31,14 +32,17 @@ import java.util.ArrayList;
 public class taskSelectorView extends Fragment {
 
 
-    public static taskSelectorView newInstance() {
-        return new taskSelectorView();
-    }
-
     ArrayList<Data> data;
     LayoutInflater mLayoutInflater;
     View rootView;
     TaskSelectorAdapter adapter;
+
+
+    public static taskSelectorView newInstance() {
+        getRecyclerViewAdapter().notifyDataSetChanged();
+        return new taskSelectorView();
+    }
+
 
 
     @Nullable

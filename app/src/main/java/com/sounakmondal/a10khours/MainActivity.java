@@ -2,6 +2,7 @@ package com.sounakmondal.a10khours;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,42 +32,50 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    //Arraylist Manipulation todo
-    public void saveArrayList(ArrayList<Data> list, String key){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        editor.putString(key, json);
-        editor.apply();
-
-    }
-
-    public ArrayList<String> getArrayList(String key){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson();
-        String json = prefs.getString(key, null);
-        Type type = new TypeToken<ArrayList<Data>>() {}.getType();
-        return gson.fromJson(json, type);
-    }
+//    //Arraylist Manipulation todo
+//    public void saveArrayList(ArrayList<Data> list, String key){
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//        SharedPreferences.Editor editor = prefs.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(list);
+//        editor.putString(key, json);
+//        editor.apply();
+//    }
+//
+//    public ArrayList<String> getArrayList(String key){
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//        Gson gson = new Gson();
+//        String json = prefs.getString(key, null);
+//        Type type = new TypeToken<ArrayList<Data>>() {}.getType();
+//        return gson.fromJson(json, type);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Variables declaration
         ArrayList<Data> data1 = new ArrayList<>();
-        data1 = TaskSelectorAdapter.getData();
+        if(TaskSelectorAdapter.getData() != null)
+        {
+            data1 = TaskSelectorAdapter.getData();
+        }
+        final TaskSelectorAdapter taskSelectorAdapter = new TaskSelectorAdapter(data1);
 
 
 
-
+        //ViewPager Initiation
         ViewPager pager = findViewById(R.id.main_viewPager);
         final PagerAdapter adapter = new Pageradapter(getSupportFragmentManager());
         TabLayout tabLayout = findViewById(R.id.main_tabLayout);
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
+
+
         taskSelectorView.newInstance();
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
         final ArrayList<Data> finalData = data1;
@@ -81,14 +90,16 @@ public class MainActivity extends AppCompatActivity {
 
                 new MaterialAlertDialogBuilder(MainActivity.this)
                         .setTitle("New Task")
-                        .setMessage("Type the name of your task")
+                        .setMessage("Make a new Task")
                         .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 TaskSelectorAdapter.newData();
-                                new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);
-                                taskSelectorView.getRecyclerViewAdapter().notifyItemInserted(TaskSelectorAdapter.getData().size()-1);
-                                taskSelectorView.newInstance();
+                                taskSelectorAdapter.notifyDataSetChanged();
+                                //taskSelectorAdapter.notifyItemInserted(which);
+                                //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);
+                                //taskSelectorView.getRecyclerViewAdapter().notifyItemInserted(TaskSelectorAdapter.getData().size());
+
                                 Log.i("onClick num elements =",Integer.toString(finalData.size()));
                             }
                         })
@@ -98,36 +109,9 @@ public class MainActivity extends AppCompatActivity {
                 taskSelectorView.newInstance();
 
 
-//                final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-//
-//                alertDialog.setTitle("New Task");
-//                alertDialog.setCancelable(false);
-//                alertDialog.setMessage("Type the name of your task");
-//
-//
-//                final EditText etComments = (EditText) view.findViewById(R.id.etComments);
-//
-//                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Save", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        setData(etComments.toString());
-//
-//                    }
-//                });
-//                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-//
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        alertDialog.dismiss();
-//                    }
-//                });
-//
-//
-//                alertDialog.setView(view);
-//                alertDialog.show();
             }
-        }
-        )
-                ;
-
+        });
+        taskSelectorView.newInstance();
+        taskSelectorAdapter.notifyDataSetChanged();
     }
 }

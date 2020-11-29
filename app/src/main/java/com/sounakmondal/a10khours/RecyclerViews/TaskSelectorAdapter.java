@@ -17,8 +17,8 @@ import com.sounakmondal.a10khours.R;
 import java.util.ArrayList;
 
 public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHolder> {
-    private static ArrayList<Data> data1 = new ArrayList<>();;
-    Context mContext;
+    private static ArrayList<Data> data1;
+    public Context mContext;
 
 
     @NonNull
@@ -59,11 +59,13 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
                         switch (item.getItemId()) {
                             case R.id.delete_optionID:
                                 removeData(position);
+                                notifyDataSetChanged();
                                 taskSelectorView.newInstance();
                                 //handle menu1 click
                                 return true;
                             case R.id.reset_optionID:
                                 resetData(position);
+                                notifyDataSetChanged();
                                 taskSelectorView.newInstance();
                                 //handle menu2 click
                                 return true;
@@ -80,15 +82,17 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     }
 
     public String hoursLeft(int hoursCompleted)
-    {
-        int hoursleft = 10000 - hoursCompleted;
+    { int hoursleft =0;
+        hoursleft = 10000 - hoursCompleted;
         return Integer.toString(hoursleft);
     }
 
-
     public static ArrayList<Data> getData()
-
     {
+        if (data1 == null)
+        {
+            data1 = new ArrayList<Data>();
+        }
 //        ArrayList<Data> data = new ArrayList<>();
 //        for(int i=0; i<1; i++){
 //            data.add(new Data(
@@ -101,22 +105,17 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     public ArrayList<Data> setData(String taskName)
     {
         data1.add(new Data(taskName, 0));
-
         return data1;
     }
 
     public static ArrayList<Data> newData()
     {
-        data1.add(new Data("taskName", 0));
-
+        data1.add(new Data("Task Name", 0));
         return data1;
     }
     public static ArrayList<Data> resetData(int position)
     {
-
-        String taskName = data1.get(position).getTaskName();
         data1.get(position).setTimeSpent(0);
-
         return data1;
     }
 
@@ -124,13 +123,16 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     {
 
         data1.remove(position);
-        //data.add(new Data(taskName, 0));
         return data1;
     }
 
 
     @Override
     public int getItemCount() {
+        if(getData() == null)
+        {
+            return 0;
+        }
         return getData().size();
     }
 }
