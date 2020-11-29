@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                TaskSelectorAdapter.newData();
+                                taskSelectorAdapter.newData();
                                 taskSelectorAdapter.notifyDataSetChanged();
                                 //taskSelectorAdapter.notifyItemInserted(which);
                                 //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);

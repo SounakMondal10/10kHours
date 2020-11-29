@@ -79,6 +79,8 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
 
             }
         });
+
+
     }
 
     public String hoursLeft(int hoursCompleted)
@@ -91,6 +93,7 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     {
         if (data1 == null)
         {
+
             data1 = new ArrayList<Data>();
         }
 //        ArrayList<Data> data = new ArrayList<>();

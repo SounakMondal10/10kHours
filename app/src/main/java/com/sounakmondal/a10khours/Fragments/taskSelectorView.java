@@ -36,10 +36,10 @@ public class taskSelectorView extends Fragment {
     LayoutInflater mLayoutInflater;
     View rootView;
     TaskSelectorAdapter adapter;
+    RecyclerView taskSelectorRecyclerView;
 
 
     public static taskSelectorView newInstance() {
-        getRecyclerViewAdapter().notifyDataSetChanged();
         return new taskSelectorView();
     }
 
@@ -50,7 +50,7 @@ public class taskSelectorView extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mLayoutInflater = inflater;
         rootView = inflater.inflate(R.layout.task_selector_layout,container,false);
-        RecyclerView taskSelectorRecyclerView = rootView.findViewById(R.id.task_selector_layoutID);
+        taskSelectorRecyclerView = rootView.findViewById(R.id.task_selector_layoutID);
         data = TaskSelectorAdapter.getData();
         adapter = new TaskSelectorAdapter(data);
         taskSelectorRecyclerView.setAdapter(adapter);
@@ -61,10 +61,10 @@ public class taskSelectorView extends Fragment {
         return rootView;
     }
 
-    public static TaskSelectorAdapter getRecyclerViewAdapter()
+    public  RecyclerView getRecyclerView()
     {
-        final TaskSelectorAdapter adapter = new TaskSelectorAdapter(TaskSelectorAdapter.getData());
-        return adapter;
+
+        return taskSelectorRecyclerView;
     }
 
 
