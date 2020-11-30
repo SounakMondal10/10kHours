@@ -12,12 +12,13 @@ Current Status -
 * 'New Task' button is working properly, but not immediately updating
 * Task menu options are updating as planned.
 * Timer Layout is designed 
+* Storing/retrieving data from shared preferences (implementation only, as code is present for writing by converting arraylist to GSON -> GSON to JSON -> storing JSON, and reading by converting JSON to arraylist).
 
                  
 To Add/Do - 
 * Remove the view pager and use the fragments as activities.
+* Working of Timer
 * Rest of the button functionalities.
-* Storing/retrieving data from shared preferences (implementation only, as code is present for writing by converting arraylist to GSON -> GSON to JSON -> storing JSON, and reading by converting JSON to arraylist).
 * Refactoring/Decorating 'Task Selector' layout.
 * Adding a splash-screen and custom-made icon.
 
