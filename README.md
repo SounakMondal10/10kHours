@@ -9,7 +9,8 @@ Current Status -
 * 'Stats' activity is designed.
 * Button is placed.
 * Data parcelable is working as planned
-* 'New Task' button and Task menu options are working properly, but not immediately updating
+* 'New Task' button is working properly, but not immediately updating
+* Task menu options are updating as planned.
 * Timer Layout is designed 
 
                  
