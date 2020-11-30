@@ -1,5 +1,6 @@
 package com.sounakmondal.a10khours;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -29,26 +31,30 @@ import com.sounakmondal.a10khours.ViewPager.Pageradapter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
 
-//    //Arraylist Manipulation todo
-//    public void saveArrayList(ArrayList<Data> list, String key){
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor editor = prefs.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(list);
-//        editor.putString(key, json);
-//        editor.apply();
-//    }
-//
-//    public ArrayList<String> getArrayList(String key){
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        Gson gson = new Gson();
-//        String json = prefs.getString(key, null);
-//        Type type = new TypeToken<ArrayList<Data>>() {}.getType();
-//        return gson.fromJson(json, type);
-//    }
+    //Arraylist Manipulation
+    public void saveArrayList(ArrayList<Data> list, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+
+    public ArrayList<Data> getArrayList(String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<Data>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+    String key = "key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +63,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Variables declaration
         ArrayList<Data> data1 = new ArrayList<>();
-        if(TaskSelectorAdapter.getData() != null)
-        {
-            data1 = TaskSelectorAdapter.getData();
-        }
-        final TaskSelectorAdapter taskSelectorAdapter = new TaskSelectorAdapter(data1);
+         data1 = TaskSelectorAdapter.getData();
+         data1 = getArrayList(key);
+
+        final ArrayList<Data> finalData = data1;
+
+        final TaskSelectorAdapter taskSelectorAdapter;
+        taskSelectorAdapter = new TaskSelectorAdapter(data1);
 
 
 
@@ -73,12 +81,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
 
 
-        taskSelectorView.newInstance();
-
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        final ArrayList<Data> finalData = data1;
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,22 +102,25 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 taskSelectorAdapter.newData();
                                 taskSelectorAdapter.notifyDataSetChanged();
+                                saveArrayList(finalData,key);
+
+
                                 //taskSelectorAdapter.notifyItemInserted(which);
                                 //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);
                                 //taskSelectorView.getRecyclerViewAdapter().notifyItemInserted(TaskSelectorAdapter.getData().size());
 
-                                Log.i("onClick num elements =",Integer.toString(finalData.size()));
+                                Log.i("onClick num elements =",Integer.toString(finalData.size()-1));
                             }
                         })
-                        .setNegativeButton("Cancel", /* listener = */ null)
+                        .setNegativeButton("Cancel", /* listener = */ new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.i("onClick negative =","null");
+                            }
+                        })
                         .show();
-
-                taskSelectorView.newInstance();
-
 
             }
         });
-        taskSelectorView.newInstance();
-        taskSelectorAdapter.notifyDataSetChanged();
     }
 }

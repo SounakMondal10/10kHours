@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sounakmondal.a10khours.Data;
 import com.sounakmondal.a10khours.MainActivity;
 import com.sounakmondal.a10khours.R;
 import com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter;
+import com.sounakmondal.a10khours.ViewPager.Pageradapter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,7 +41,7 @@ public class taskSelectorView extends Fragment {
     ArrayList<Data> data;
     LayoutInflater mLayoutInflater;
     View rootView;
-    TaskSelectorAdapter adapter;
+    public TaskSelectorAdapter adapter;
     RecyclerView taskSelectorRecyclerView;
 
 
@@ -57,13 +63,16 @@ public class taskSelectorView extends Fragment {
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(rootView.getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         taskSelectorRecyclerView.setLayoutManager(mLinearLayoutManager);
-
+        updateRecyclerView();
         return rootView;
     }
 
+    public void updateRecyclerView()
+    {
+        adapter.notifyDataSetChanged();
+    }
     public  RecyclerView getRecyclerView()
     {
-
         return taskSelectorRecyclerView;
     }
 
