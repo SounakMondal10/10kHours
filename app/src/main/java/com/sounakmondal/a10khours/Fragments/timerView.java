@@ -22,9 +22,12 @@ import java.util.TimerTask;
 
 public class timerView extends Fragment {
     View rootView;
-    protected Timer myTimer;
     TextView timerTextView;
     Button startButton, pauseButton, stopButton;
+    int minutes = 0, hours = 0,seconds = 0; //For storing data
+    long milliseconds=0;
+    int time=0;
+
 
     public static timerView newInstance() {
         return new timerView();
@@ -55,8 +58,21 @@ public class timerView extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTime = System.currentTimeMillis();
                 startTimer();
+            }
+        });
+
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseTimer();
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopTimer();
             }
         });
 
@@ -65,19 +81,90 @@ public class timerView extends Fragment {
 }
 
 
+    static long startTime = System.currentTimeMillis();
+    static long temp_time = 0; //time elapsed since the timer was started
+    long millis =0; // same as temp_time
+    boolean isPaused = false;
+    public static Timer myTimer;
+    boolean timerIsRunning = false;
+    boolean firstTime = true;
 
 
 
     public void startTimer()
     {
-        myTimer = new Timer();
-        myTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                TimerMethod();
+        if(firstTime == true)
+            {
+                startTime = System.currentTimeMillis();
+                firstTime = false;
             }
 
-        }, 0, 1000);
+        else
+            {
+                if(timerIsRunning == true) //needs checking
+                {
+
+                }
+                if(isPaused = false)
+                {
+                    startTime = System.currentTimeMillis();
+                    //millis =temp_time;
+                }
+                else
+                {
+                    startTime = System.currentTimeMillis()-temp_time;
+                    isPaused = false;
+
+                }
+
+            }
+
+
+        if(timerIsRunning == false)
+        {
+            myTimer = new Timer();
+            myTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    TimerMethod();
+                    timerIsRunning = true;
+                }
+
+            }, 0, 1000);
+
+        }
+
+
+
+
+    }
+
+    public void pauseTimer()
+    {
+        if(myTimer!=null)
+        {   temp_time = millis;
+            isPaused = true;
+            myTimer.cancel();
+            myTimer.purge();
+            timerIsRunning = false;
+        }
+    }
+
+    public void stopTimer()
+    {
+        if(myTimer!=null)
+        {
+            millis = 0;
+            temp_time = 0;
+            String time_text = "00:00:00";
+            timerTextView.setText(time_text);
+            myTimer.cancel();
+            myTimer.purge();
+            myTimer = null;
+            firstTime = true;
+            timerIsRunning = false;
+        }
+
 
     }
 
@@ -87,23 +174,27 @@ public class timerView extends Fragment {
     {
         //This method is called directly by the timer
         //and runs in the same thread as the timer.
-
         //We call the method that will work with the UI
         //through the runOnUiThread method.
         getActivity().runOnUiThread(Timer_Tick);
     }
 
-    long startTime = 0;
 
 
     private Runnable Timer_Tick = new Runnable() {
         public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis/1000);
-            int minutes = seconds / 60;
+
+            millis = System.currentTimeMillis() - startTime;
+            temp_time = millis;
+            seconds = (int) (millis/1000);
+            minutes = seconds / 60;
             seconds = seconds % 60;
-            int hours = minutes / 60;
+//            currentSec = seconds;
+            hours = minutes / 60;
             minutes = minutes % 60;
+//            currentMin = minutes;
+//            currentHour = hours;
+
             String hoursStr = "00",minutesStr= "00", secondsStr= "00";
 
             if(hours<10)
@@ -133,7 +224,7 @@ public class timerView extends Fragment {
             String time_text = hoursStr + ":" + minutesStr +":"+secondsStr;
 
             timerTextView.setText(time_text);
-            Log.i("seconds passed - ",secondsStr);
+//            Log.i("seconds passed - ",secondsStr);
 
 
             //update this part
