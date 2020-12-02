@@ -27,8 +27,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="150dp"
         android:text="00:00:00"
-        android:textSize="80sp"
-        />
+        android:textSize="50sp"
+        android:paddingTop="40dp" />
 
     <Button
         android:id="@+id/Stats_buttonID"
@@ -47,10 +47,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/pause_buttonID"
         android:layout_marginRight="20dp"
+        android:text="Start"
+        app:layout_constraintEnd_toEndOf="@id/pause_buttonID"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView" />
 
 
@@ -58,11 +58,12 @@
         android:id="@+id/pause_buttonID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:onClick="startTimerMethod"
         android:text="Pause"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <Button
         android:id="@+id/stop_buttonID"

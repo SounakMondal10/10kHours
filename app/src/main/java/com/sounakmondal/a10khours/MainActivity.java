@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 taskSelectorView.newInstance();
                 Context context = getApplicationContext();
                 LayoutInflater mLayoutInflater = LayoutInflater.from(getApplicationContext());
+
                 final View view = mLayoutInflater.inflate(R.layout.dialog_layout, null);
 
                 new MaterialAlertDialogBuilder(MainActivity.this)
