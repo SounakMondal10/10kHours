@@ -22,7 +22,7 @@ import java.util.TimerTask;
 
 public class timerView extends Fragment {
     View rootView;
-    TextView timerTextView;
+    TextView timerTextView, taskNameText;
     Button startButton, pauseButton, stopButton;
     int minutes = 0, hours = 0,seconds = 0; //For storing data
     long milliseconds=0;
@@ -42,6 +42,7 @@ public class timerView extends Fragment {
         startButton = rootView.findViewById(R.id.start_buttonID);
         pauseButton = rootView.findViewById(R.id.pause_buttonID);
         stopButton = rootView.findViewById(R.id.stop_buttonID);
+        taskNameText = rootView.findViewById(R.id.taskNameText);
 
 
         //click stats button to start stats activity
@@ -168,8 +169,6 @@ public class timerView extends Fragment {
 
     }
 
-
-
     private void TimerMethod()
     {
         //This method is called directly by the timer
@@ -233,8 +232,6 @@ public class timerView extends Fragment {
 
         }
     };
-
-
 
 }
 
