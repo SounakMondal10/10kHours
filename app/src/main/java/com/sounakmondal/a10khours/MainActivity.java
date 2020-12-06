@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 data1 = taskSelectorAdapter.newData();
+                                taskSelectorAdapter.notifyItemInserted(which-1);
                                 saveArrayList(data1,key);
                                 //taskSelectorAdapter.notifyItemInserted(which);
                                 //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);

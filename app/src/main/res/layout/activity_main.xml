@@ -39,7 +39,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="60dp"
         android:src="@drawable/baseline_add_white_18dp"
-        android:backgroundTint="@color/colorPrimaryDark"
+        app:tint = "#fff"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/main_viewPager"
         app:layout_constraintRight_toRightOf="@id/main_viewPager" />
 </androidx.constraintlayout.widget.ConstraintLayout>
