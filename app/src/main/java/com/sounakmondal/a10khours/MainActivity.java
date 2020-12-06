@@ -41,8 +41,9 @@ import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
 
+// Subscribing to event bus and mentioning the action to be taken when the action in adapter is done
+    @Subscribe (threadMode = ThreadMode.MAIN)
     public void onDataSync(TaskSelectorAdapter.DataSync dataSync)
     {
         data1 = dataSync.data0;
