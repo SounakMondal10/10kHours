@@ -64,6 +64,7 @@ public class taskSelectorView extends Fragment {
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         taskSelectorRecyclerView.setLayoutManager(mLinearLayoutManager);
         updateRecyclerView();
+        Log.i("TSV onCreate","");
         return rootView;
     }
 
@@ -73,7 +74,6 @@ public class taskSelectorView extends Fragment {
     }
     public  RecyclerView getRecyclerView()
     {
-
         return taskSelectorRecyclerView;
     }
 

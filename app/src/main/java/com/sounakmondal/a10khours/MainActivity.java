@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +30,38 @@ import com.sounakmondal.a10khours.Fragments.taskSelectorView;
 import com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter;
 import com.sounakmondal.a10khours.ViewPager.Pageradapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Subscribe (threadMode = ThreadMode.MAIN)
+
+    public void onDataSync(TaskSelectorAdapter.DataSync dataSync)
+    {
+        data1 = dataSync.data0;
+        saveArrayList(data1,key);
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 
     //Arraylist Manipulation
     public void saveArrayList(ArrayList<Data> list, String key){
@@ -55,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String key = "key";
-    TaskSelectorAdapter taskSelectorAdapter;
     ArrayList<Data> data1 = new ArrayList<>();
 
     @Override
@@ -65,12 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Variables declaration
 
-         data1 = TaskSelectorAdapter.getData();
          data1 = getArrayList(key);
 
-        final ArrayList<Data> finalData = data1;
 
 
+        final TaskSelectorAdapter taskSelectorAdapter;
         taskSelectorAdapter = new TaskSelectorAdapter(data1);
 
 
@@ -83,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
 
 
-
         FloatingActionButton fab = findViewById(R.id.fab);
 
 
@@ -94,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 taskSelectorView.newInstance();
                 Context context = getApplicationContext();
                 LayoutInflater mLayoutInflater = LayoutInflater.from(getApplicationContext());
-                
+
                 final View view = mLayoutInflater.inflate(R.layout.dialog_layout, null);
 
                 new MaterialAlertDialogBuilder(MainActivity.this)
@@ -103,16 +127,13 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                taskSelectorAdapter.newData();
-                                taskSelectorAdapter.notifyDataSetChanged();
-                                saveArrayList(finalData,key);
-
-
+                                data1 = taskSelectorAdapter.newData();
+                                saveArrayList(data1,key);
                                 //taskSelectorAdapter.notifyItemInserted(which);
                                 //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);
                                 //taskSelectorView.getRecyclerViewAdapter().notifyItemInserted(TaskSelectorAdapter.getData().size());
 
-                                Log.i("onClick num elements =",Integer.toString(finalData.size()-1));
+                                Log.i("onClick num elements =",Integer.toString(data1.size()));
                             }
                         })
                         .setNegativeButton("Cancel", /* listener = */ new DialogInterface.OnClickListener() {
@@ -123,7 +144,10 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .show();
 
+
             }
         });
     }
+
+
 }
