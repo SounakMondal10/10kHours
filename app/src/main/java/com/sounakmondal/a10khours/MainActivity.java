@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String key = "key";
+    TaskSelectorAdapter taskSelectorAdapter;
+    ArrayList<Data> data1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Variables declaration
-        ArrayList<Data> data1 = new ArrayList<>();
+
          data1 = TaskSelectorAdapter.getData();
          data1 = getArrayList(key);
 
         final ArrayList<Data> finalData = data1;
 
-        final TaskSelectorAdapter taskSelectorAdapter;
+
         taskSelectorAdapter = new TaskSelectorAdapter(data1);
 
 
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 taskSelectorView.newInstance();
                 Context context = getApplicationContext();
                 LayoutInflater mLayoutInflater = LayoutInflater.from(getApplicationContext());
-
+                
                 final View view = mLayoutInflater.inflate(R.layout.dialog_layout, null);
 
                 new MaterialAlertDialogBuilder(MainActivity.this)

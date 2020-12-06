@@ -224,11 +224,10 @@ public class timerView extends Fragment {
 
             timerTextView.setText(time_text);
 //            Log.i("seconds passed - ",secondsStr);
-
-
             //update this part
             //This method runs in the same thread as the UI.
             //Do something to the UI thread here
+            //Done!
 
         }
     };

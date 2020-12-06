@@ -35,8 +35,6 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         data1 = data;
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull final TaskSelectorViewHolder holder, final int position)
     {
@@ -79,8 +77,6 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
 
             }
         });
-
-
     }
 
     public String hoursLeft(int hoursCompleted)
@@ -89,13 +85,13 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         return Integer.toString(hoursleft);
     }
 
+    public void updateTasks()
+    {
+        this.notifyDataSetChanged();
+    }
+
     public static ArrayList<Data> getData()
     {
-        if (data1 == null)
-        {
-
-            data1 = new ArrayList<Data>();
-        }
 //        ArrayList<Data> data = new ArrayList<>();
 //        for(int i=0; i<1; i++){
 //            data.add(new Data(
@@ -111,7 +107,7 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         return data1;
     }
 
-    public static ArrayList<Data> newData()
+    public ArrayList<Data> newData()
     {
         data1.add(new Data("Task Name", 0));
         return data1;
@@ -130,6 +126,9 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     }
 
 
+
+
+
     @Override
     public int getItemCount() {
         if(getData() == null)
@@ -137,5 +136,6 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
             return 0;
         }
         return getData().size();
+
     }
 }

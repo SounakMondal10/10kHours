@@ -73,6 +73,7 @@ public class taskSelectorView extends Fragment {
     }
     public  RecyclerView getRecyclerView()
     {
+
         return taskSelectorRecyclerView;
     }
 
