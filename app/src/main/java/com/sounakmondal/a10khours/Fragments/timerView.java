@@ -27,7 +27,7 @@ public class timerView extends Fragment {
     public static TextView taskNameText;
     public static int taskTimeCompleted;
     View rootView;
-    TextView timerTextView;
+    public static TextView timerTextView;
     Button startButton, pauseButton, stopButton;
     int minutes = 0, hours = 0,seconds = 0; //For storing data
     long milliseconds=0;
@@ -50,7 +50,6 @@ public class timerView extends Fragment {
         pauseButton = rootView.findViewById(R.id.pause_buttonID);
         stopButton = rootView.findViewById(R.id.stop_buttonID);
         taskNameText = rootView.findViewById(R.id.taskNameText);
-
 
         //click stats button to start stats activity
         Button statsButton = rootView.findViewById(R.id.Stats_buttonID);
@@ -254,8 +253,52 @@ public class timerView extends Fragment {
         taskDetails1 = taskDetails;
         taskNameText.setText(taskDetails.getTaskName());
         taskTimeCompleted = taskDetails.getTimeSpent();
+
+
+        //
+
+        int secs = taskTimeCompleted;
+        int mins = secs / 60;
+        secs = secs % 60;
+        int hour = mins / 60;
+        mins = mins % 60;
+
+
+        String hoursString = "00",minutesString= "00", secondsString= "00";
+
+        if(hour<10)
+        {
+            hoursString = "0"+ hour;
+        }
+        else
+        {
+            hoursString =  Integer.toString(hour);
+        }
+        if(mins<10)
+        {
+            minutesString = "0"+ mins;
+        }
+        else
+        {
+            minutesString =  Integer.toString(mins);
+        }
+        if(secs<10)
+        {
+            secondsString = "0"+ secs;
+        }
+        else
+        {
+            secondsString =  Integer.toString(secs);
+        }
+        String time_text = hoursString + ":" + minutesString +":"+secondsString;
+        timerTextView.setText(time_text);
+
+        //
+
+
         pos = position;
     }
+
 
     public static void updateCompletedTime(int seconds)
     {
