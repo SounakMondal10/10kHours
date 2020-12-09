@@ -6,31 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_tabLayout"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/main_tabLayout"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        >-->
 
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Task" />
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Select Task" />-->
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Timer" />
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Timer" />-->
 
-    </com.google.android.material.tabs.TabLayout>
+<!--    </com.google.android.material.tabs.TabLayout>-->
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/main_viewPager"
-        app:layout_constraintTop_toBottomOf="@+id/main_tabLayout"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+<!--        app:layout_constraintTop_toBottomOf="@+id/main_tabLayout"-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

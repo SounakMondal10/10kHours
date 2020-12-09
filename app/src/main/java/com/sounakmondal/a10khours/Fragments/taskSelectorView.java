@@ -2,6 +2,7 @@ package com.sounakmondal.a10khours.Fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
@@ -35,7 +38,7 @@ import com.sounakmondal.a10khours.ViewPager.Pageradapter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class taskSelectorView extends Fragment {
+public class taskSelectorView extends Fragment implements TaskSelectorAdapter.onTaskListener{
 
 
     ArrayList<Data> data;
@@ -58,7 +61,7 @@ public class taskSelectorView extends Fragment {
         rootView = inflater.inflate(R.layout.task_selector_layout,container,false);
         taskSelectorRecyclerView = rootView.findViewById(R.id.task_selector_layoutID);
         data = TaskSelectorAdapter.getData();
-        adapter = new TaskSelectorAdapter(data);
+        adapter = new TaskSelectorAdapter(data, this);
         taskSelectorRecyclerView.setAdapter(adapter);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(rootView.getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -77,17 +80,19 @@ public class taskSelectorView extends Fragment {
         return taskSelectorRecyclerView;
     }
 
+    @Override
+    public void onTaskClick(int position) {
+        data.get(position);
+        Fragment fragment = new timerView();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_viewPager, timerView.newInstance()); //issue here
+//        fragmentTransaction.hide(taskSelectorView.newInstance());
+//        fragmentTransaction.show(timerView.newInstance());
 
-
-
-
-
-
-
-
-
-
-
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
 
 //        final View view = mLayoutInflater.inflate(R.layout.dialog_layout, null);

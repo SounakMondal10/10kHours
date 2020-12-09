@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskSelectorAdapter.onTaskListener {
 
 
 // Subscribing to event bus and mentioning the action to be taken when the action in adapter is done
@@ -84,11 +84,13 @@ public class MainActivity extends AppCompatActivity {
 
     String key = "key";
     ArrayList<Data> data1 = new ArrayList<>();
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //Variables declaration
 
@@ -97,19 +99,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         final TaskSelectorAdapter taskSelectorAdapter;
-        taskSelectorAdapter = new TaskSelectorAdapter(data1);
+        taskSelectorAdapter = new TaskSelectorAdapter(data1, this); //possible issue
 
 
 
         //ViewPager Initiation
         ViewPager pager = findViewById(R.id.main_viewPager);
         final PagerAdapter adapter = new Pageradapter(getSupportFragmentManager());
-        TabLayout tabLayout = findViewById(R.id.main_tabLayout);
+//        TabLayout tabLayout = findViewById(R.id.main_tabLayout);
         pager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(pager);
+//        tabLayout.setupWithViewPager(pager);
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
 
 
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                                 data1 = taskSelectorAdapter.newData();
                                 taskSelectorAdapter.notifyItemInserted(which-1);
                                 saveArrayList(data1,key);
+
                                 //taskSelectorAdapter.notifyItemInserted(which);
                                 //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);
                                 //taskSelectorView.getRecyclerViewAdapter().notifyItemInserted(TaskSelectorAdapter.getData().size());
@@ -145,11 +148,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .show();
-
-
             }
         });
     }
 
 
+    @Override
+    public void onTaskClick(int position) {
+        Log.i("Clicked","OnTaskClick Executed");
+
+    }
 }

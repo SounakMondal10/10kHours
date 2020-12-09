@@ -8,16 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sounakmondal.a10khours.R;
 
-public class TaskSelectorViewHolder extends RecyclerView.ViewHolder {
+public class TaskSelectorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView taskName,hoursCompleted,hoursLeft, buttonViewOption;
+    TaskSelectorAdapter.onTaskListener onTaskListener;
 
-
-    public TaskSelectorViewHolder(@NonNull View itemView) {
+    public TaskSelectorViewHolder(@NonNull View itemView, TaskSelectorAdapter.onTaskListener onTaskListener) {
         super(itemView);
         taskName = itemView.findViewById(R.id.taskNameText);
         hoursCompleted = itemView.findViewById(R.id.hoursCompletedText);
         hoursLeft = itemView.findViewById(R.id.hoursLeftText);
         buttonViewOption = itemView.findViewById(R.id.textViewOptions);
+
+        this.onTaskListener = onTaskListener;
+        itemView.setOnClickListener(this); //set onclick listener here
     }
 
     public TextView getTaskName() {
@@ -50,5 +53,10 @@ public class TaskSelectorViewHolder extends RecyclerView.ViewHolder {
 
     public void setButtonViewOption(TextView buttonViewOption) {
         this.buttonViewOption = buttonViewOption;
+    }
+
+    @Override
+    public void onClick(View v) {
+        onTaskListener.onTaskClick(getAdapterPosition());
     }
 }

@@ -27,11 +27,11 @@ public class Pageradapter extends FragmentStatePagerAdapter {
                returnFragment = taskSelectorView.newInstance();
                break;
             }
-            case(1):
-            {
-                returnFragment = timerView.newInstance();
-                break;
-            }
+//            case(1):
+//            {
+//                returnFragment = timerView.newInstance();
+//                break;
+//            }
 
             default: returnFragment = null;
         }
@@ -42,30 +42,30 @@ public class Pageradapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 1;
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        CharSequence title;
-        switch (position)
-        {
-            case(0):
-            {
-                title = "Select Task";
-                break;
-            }
-            case(1):
-            {
-                title = "Timer";
-                break;
-            }
-
-            default: title = null;
-        }
-
-
-        return title;
-    }
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        CharSequence title;
+//        switch (position)
+//        {
+//            case(0):
+//            {
+//                title = "Select Task";
+//                break;
+//            }
+//            case(1):
+//            {
+//                title = "Timer";
+//                break;
+//            }
+//
+//            default: title = null;
+//        }
+//
+//
+//        return title;
+//    }
 }

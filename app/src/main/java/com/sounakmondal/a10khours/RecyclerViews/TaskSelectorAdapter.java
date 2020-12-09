@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHolder>  {
     public static ArrayList<Data> data1;
-
+    public onTaskListener onTaskListener;
     public Context mContext;
 
 
@@ -37,12 +37,13 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View rootView = inflater.inflate(R.layout.task_selector_element, parent, false);
 
-        return new TaskSelectorViewHolder(rootView);
+        return new TaskSelectorViewHolder(rootView, onTaskListener);//
 
     }
 
-    public TaskSelectorAdapter(ArrayList<Data> data)
+    public TaskSelectorAdapter(ArrayList<Data> data, onTaskListener onTaskListener)
     {
+        this.onTaskListener = onTaskListener;//
         data1 = data;
 
     }
@@ -73,12 +74,6 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
                                 removeData(position);
                                 EventBus.getDefault().post(new DataSync(data1)); //calling event bus
                                 notifyDataSetChanged();
-
-                                //DELETED ITEMS NOT UPDATING BECAUSE
-                                //DATA CHANGED HERE IS NOT UPDATING THE MAIN
-                                //DATA1 ARRAYLIST IN MAINACTIVITY WHERE IT'S
-                                //STORED IN SHAREDPREFS
-
 
                                 //handle menu1 click
                                 return true;
@@ -167,7 +162,15 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         }
     }
 
-
+    //recyclerview item touch listener interface
+    //step1 - declare interface
+    //step2 - go to fragment -> implement and add methods -> Do what is required (like changing activities etc.) in the method
+    //step3 - implement onClickListener in the ViewHolder class so that the interface can detect click
+    //step4 - make the changes in variables required in the main activity as well where the adapter is called and set
+    public interface onTaskListener
+    {
+        void onTaskClick(int position);
+    }
 
 
 }
