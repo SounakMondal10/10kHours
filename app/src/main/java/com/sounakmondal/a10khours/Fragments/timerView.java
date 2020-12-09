@@ -262,7 +262,7 @@ public class timerView extends Fragment {
         taskTimeCompleted = taskDetails.getTimeSpent();
 
 
-        //
+        // temporarily changing timer time to whatever it is of the selected task
 
         int secs = taskTimeCompleted;
         int mins = secs / 60;

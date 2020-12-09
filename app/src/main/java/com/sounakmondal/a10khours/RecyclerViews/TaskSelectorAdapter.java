@@ -53,7 +53,7 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     @Override
     public void onBindViewHolder(@NonNull final TaskSelectorViewHolder holder, final int position)
     {
-        holder.getHoursCompleted().setText(Integer.toString(getData().get(position).getTimeSpent()));
+        holder.getHoursCompleted().setText(Integer.toString(getData().get(position).getTimeSpent()/3600));
         holder.getTaskName().setText(getData().get(position).getTaskName());
         holder.getHoursLeft().setText(hoursLeft(getData().get(position).getTimeSpent()));
 
@@ -72,7 +72,7 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
                         switch (item.getItemId()) {
                             case R.id.delete_optionID:
                                 removeData(position);
-                                EventBus.getDefault().post(new DataSync(data1)); //calling event bus
+                                EventBus.getDefault().post(new DataSync(data1)); //calling event bus - This line is used whenever a eventbus is needed to save to sharedprefs (in this case)
                                 notifyDataSetChanged();
 
                                 //handle menu1 click
