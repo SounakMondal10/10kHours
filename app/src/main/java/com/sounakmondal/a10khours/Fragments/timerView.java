@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +60,7 @@ public class timerView extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "Timer Started", Toast.LENGTH_SHORT).show();
                 startTimer();
             }
         });
@@ -66,6 +68,7 @@ public class timerView extends Fragment {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "Timer Paused", Toast.LENGTH_SHORT).show();
                 pauseTimer();
             }
         });
@@ -73,6 +76,7 @@ public class timerView extends Fragment {
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "Timer Stopped", Toast.LENGTH_SHORT).show();
                 stopTimer();
             }
         });
