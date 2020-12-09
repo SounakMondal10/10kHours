@@ -16,12 +16,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.sounakmondal.a10khours.Data;
+import com.sounakmondal.a10khours.MainActivity;
 import com.sounakmondal.a10khours.R;
 import com.sounakmondal.a10khours.StatsActivity;
 import com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter.data1;
 
 public class timerView extends Fragment {
     public static TextView taskNameText;
@@ -166,6 +172,7 @@ public class timerView extends Fragment {
         {
             updateCompletedTime(taskDetails1.getTimeSpent()+ (int) temp_time/1000);
             TaskSelectorAdapter.setData(pos, taskDetails1.getTaskName(),taskDetails1.getTimeSpent());
+            EventBus.getDefault().post(new TaskSelectorAdapter.DataSync(TaskSelectorAdapter.getData()));
             Log.i("completed time",Integer.toString(taskDetails1.getTimeSpent()));
             millis = 0;
             temp_time = 0;

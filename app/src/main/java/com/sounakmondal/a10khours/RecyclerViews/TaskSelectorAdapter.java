@@ -152,7 +152,7 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     }
 
     //EVENTBUS POJO CLASS (STEP-1)
-    public class DataSync
+    public static class DataSync
     {
         public ArrayList<Data> data0 = new ArrayList<>();
 
