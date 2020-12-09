@@ -15,15 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.sounakmondal.a10khours.Data;
 import com.sounakmondal.a10khours.R;
 import com.sounakmondal.a10khours.StatsActivity;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class timerView extends Fragment {
+    public static TextView taskNameText;
+    public static int taskTimeCompleted =0;
     View rootView;
-    TextView timerTextView, taskNameText;
+    TextView timerTextView;
     Button startButton, pauseButton, stopButton;
     int minutes = 0, hours = 0,seconds = 0; //For storing data
     long milliseconds=0;
@@ -33,6 +37,8 @@ public class timerView extends Fragment {
     public static timerView newInstance() {
         return new timerView();
     }
+
+
 
     @Nullable
     @Override
@@ -159,10 +165,11 @@ public class timerView extends Fragment {
     {
         if(myTimer!=null)
         {
+            updateCompletedTime(taskDetails1.getTimeSpent()+ (int) temp_time/1000);
+            Log.i("completed time",Integer.toString(taskDetails1.getTimeSpent()));
             millis = 0;
             temp_time = 0;
-            String time_text = "00:00:00";
-            timerTextView.setText(time_text);
+
             myTimer.cancel();
             myTimer.purge();
             myTimer = null;
@@ -188,6 +195,7 @@ public class timerView extends Fragment {
         public void run() {
 
             millis = System.currentTimeMillis() - startTime;
+            millis += taskDetails1.getTimeSpent()*1000;
             temp_time = millis;
             seconds = (int) (millis/1000);
             minutes = seconds / 60;
@@ -235,6 +243,22 @@ public class timerView extends Fragment {
 
         }
     };
+
+    public static Data taskDetails1;
+
+
+    public static void setTimeFromTask(Data taskDetails)
+    {
+        taskDetails1 = taskDetails;
+        taskNameText.setText(taskDetails.getTaskName());
+        taskTimeCompleted = taskDetails.getTimeSpent();
+    }
+
+    public static void updateCompletedTime(int seconds)
+    {
+        taskDetails1.setTimeSpent(seconds);
+    }
+
 
 }
 

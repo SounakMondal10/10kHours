@@ -90,7 +90,8 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
         data.get(position);
         Toast.makeText(getContext(), "Task Selected", Toast.LENGTH_SHORT).show();
         Log.i("TSV","OnTaskClick Executed");
-        //add function to get data(position)
+        //add function to get data(position) for changing timer view
+        timerView.setTimeFromTask(data.get(position));
 
 
 
