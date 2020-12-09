@@ -97,8 +97,8 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
     }
 
     public String hoursLeft(int hoursCompleted)
-    { int hoursleft =0;
-        hoursleft = 10000 - hoursCompleted;
+    {
+        int hoursleft = 10000 - hoursCompleted/3600;
         return Integer.toString(hoursleft);
     }
 
@@ -117,11 +117,10 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         return data1;
     }
 
-    public ArrayList<Data> setData(ArrayList<Data> data0)
+    public static void setData(int position, String taskName, int timeCompleted)
     {
-        data1.clear();
-        data1 = data0;
-        return data1;
+        data1.get(position).setTaskName(taskName);
+        data1.get(position).setTimeSpent(timeCompleted);
     }
 
     public static ArrayList<Data> newData()

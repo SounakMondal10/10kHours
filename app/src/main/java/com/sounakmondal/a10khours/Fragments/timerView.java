@@ -18,14 +18,14 @@ import androidx.fragment.app.Fragment;
 import com.sounakmondal.a10khours.Data;
 import com.sounakmondal.a10khours.R;
 import com.sounakmondal.a10khours.StatsActivity;
-
+import com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class timerView extends Fragment {
     public static TextView taskNameText;
-    public static int taskTimeCompleted =0;
+    public static int taskTimeCompleted;
     View rootView;
     TextView timerTextView;
     Button startButton, pauseButton, stopButton;
@@ -166,6 +166,7 @@ public class timerView extends Fragment {
         if(myTimer!=null)
         {
             updateCompletedTime(taskDetails1.getTimeSpent()+ (int) temp_time/1000);
+            TaskSelectorAdapter.setData(pos, taskDetails1.getTaskName(),taskDetails1.getTimeSpent());
             Log.i("completed time",Integer.toString(taskDetails1.getTimeSpent()));
             millis = 0;
             temp_time = 0;
@@ -245,19 +246,23 @@ public class timerView extends Fragment {
     };
 
     public static Data taskDetails1;
+    public static int pos;
 
 
-    public static void setTimeFromTask(Data taskDetails)
+    public static void setTimeFromTask(Data taskDetails, int position)
     {
         taskDetails1 = taskDetails;
         taskNameText.setText(taskDetails.getTaskName());
         taskTimeCompleted = taskDetails.getTimeSpent();
+        pos = position;
     }
 
     public static void updateCompletedTime(int seconds)
     {
         taskDetails1.setTimeSpent(seconds);
     }
+
+
 
 
 }
