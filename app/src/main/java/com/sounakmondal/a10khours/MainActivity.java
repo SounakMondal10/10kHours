@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements TaskSelectorAdapt
     String key = "key";
     ArrayList<Data> data1 = new ArrayList<>();
     FloatingActionButton fab;
+    ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +105,11 @@ public class MainActivity extends AppCompatActivity implements TaskSelectorAdapt
 
 
         //ViewPager Initiation
-        ViewPager pager = findViewById(R.id.main_viewPager);
+        pager = findViewById(R.id.main_viewPager);
         final PagerAdapter adapter = new Pageradapter(getSupportFragmentManager());
-//        TabLayout tabLayout = findViewById(R.id.main_tabLayout);
+        TabLayout tabLayout = findViewById(R.id.main_tabLayout);
         pager.setAdapter(adapter);
-//        tabLayout.setupWithViewPager(pager);
+        tabLayout.setupWithViewPager(pager);
 
 
         fab = findViewById(R.id.fab);
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements TaskSelectorAdapt
     @Override
     public void onTaskClick(int position) {
         Log.i("Clicked","OnTaskClick Executed");
-
+        pager.setCurrentItem(1, true);
     }
+
 }

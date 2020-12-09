@@ -38,13 +38,14 @@ import com.sounakmondal.a10khours.ViewPager.Pageradapter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class taskSelectorView extends Fragment implements TaskSelectorAdapter.onTaskListener{
+public class taskSelectorView extends Fragment implements TaskSelectorAdapter.onTaskListener {
 
 
     ArrayList<Data> data;
     LayoutInflater mLayoutInflater;
     View rootView;
     public TaskSelectorAdapter adapter;
+    ViewPager pager;
     RecyclerView taskSelectorRecyclerView;
 
 
@@ -58,8 +59,11 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mLayoutInflater = inflater;
+//        rootView = inflater.inflate(R.layout.activity_main,container,false);
+
         rootView = inflater.inflate(R.layout.task_selector_layout,container,false);
         taskSelectorRecyclerView = rootView.findViewById(R.id.task_selector_layoutID);
+        pager = rootView.findViewById(R.id.main_viewPager);
         data = TaskSelectorAdapter.getData();
         adapter = new TaskSelectorAdapter(data, this);
         taskSelectorRecyclerView.setAdapter(adapter);
@@ -83,15 +87,18 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
     @Override
     public void onTaskClick(int position) {
         data.get(position);
-        Fragment fragment = new timerView();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_viewPager, timerView.newInstance()); //issue here
+//        pager.setCurrentItem(0);
+        Log.i("TSV","OnTaskClick Executed");
+
+
+//        Fragment fragment = new timerView();
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.main_viewPager, timerView.newInstance()); //issue here
 //        fragmentTransaction.hide(taskSelectorView.newInstance());
 //        fragmentTransaction.show(timerView.newInstance());
-
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
     }
 
 
