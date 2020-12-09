@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,8 +88,11 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
     @Override
     public void onTaskClick(int position) {
         data.get(position);
-//        pager.setCurrentItem(0);
+        Toast.makeText(getContext(), "Task Selected", Toast.LENGTH_SHORT).show();
         Log.i("TSV","OnTaskClick Executed");
+        //add function to get data(position)
+
+
 
 
 //        Fragment fragment = new timerView();
