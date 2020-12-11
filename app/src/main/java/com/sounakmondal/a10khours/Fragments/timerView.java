@@ -270,6 +270,12 @@ public class timerView extends Fragment {
     public static boolean taskChosen = false;
 
 
+
+
+    public static Data getTaskDetails1() {
+        return taskDetails1;
+    }
+
     public static void setTimeFromTask(Data taskDetails, int position)
     {
         taskDetails1 = taskDetails;
