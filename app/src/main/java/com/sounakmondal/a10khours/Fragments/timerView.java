@@ -115,7 +115,6 @@ public class timerView extends Fragment {
             return false;
 
         }
-        
         Toast.makeText(getContext(), "Timer Started", Toast.LENGTH_SHORT).show();
         if(firstTime == true)
             {
