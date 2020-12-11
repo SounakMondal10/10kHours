@@ -26,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sounakmondal.a10khours.Dialogues.EnterActivityNameDialogue;
 import com.sounakmondal.a10khours.Fragments.taskSelectorView;
 import com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter;
 import com.sounakmondal.a10khours.ViewPager.Pageradapter;
@@ -39,7 +40,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
-public class MainActivity extends AppCompatActivity implements TaskSelectorAdapter.onTaskListener {
+import static com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter.getData;
+import static com.sounakmondal.a10khours.RecyclerViews.TaskSelectorAdapter.setData;
+
+public class MainActivity extends AppCompatActivity implements TaskSelectorAdapter.onTaskListener, EnterActivityNameDialogue.EnterActivityNameDialogueListener {
 
 
 // Subscribing to event bus and mentioning the action to be taken when the action in adapter is done
@@ -126,15 +130,15 @@ public class MainActivity extends AppCompatActivity implements TaskSelectorAdapt
                 final View view = mLayoutInflater.inflate(R.layout.dialog_layout, null);
 
                 new MaterialAlertDialogBuilder(MainActivity.this)
-                        .setTitle("New Task")
-                        .setMessage("Make a new Task")
-                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        .setTitle("Add a New Task")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                data1 = taskSelectorAdapter.newData();
+//                                data1 = taskSelectorAdapter.newData();
                                 taskSelectorAdapter.notifyItemInserted(which-1);
+                                EnterActivityNameDialogue.setNewItemOrRename();
+                                openDialog();
                                 saveArrayList(data1,key);
-
                                 //taskSelectorAdapter.notifyItemInserted(which);
                                 //new TaskSelectorAdapter(TaskSelectorAdapter.getData()).notifyItemInserted(which);
                                 //taskSelectorView.getRecyclerViewAdapter().notifyItemInserted(TaskSelectorAdapter.getData().size());
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements TaskSelectorAdapt
                                 Log.i("onClick num elements =",Integer.toString(data1.size()));
                             }
                         })
-                        .setNegativeButton("Cancel", /* listener = */ new DialogInterface.OnClickListener() {
+                        .setNegativeButton("No", /* listener = */ new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.i("onClick negative =","null");
@@ -161,4 +165,13 @@ public class MainActivity extends AppCompatActivity implements TaskSelectorAdapt
         pager.setCurrentItem(1, true);
     }
 
+    @Override
+    public void applyTaskName(String taskName, int position) {
+        setData(position,taskName,getData().get(position).getTimeSpent());
+    }
+
+    public void openDialog() {
+        EnterActivityNameDialogue dialog = new EnterActivityNameDialogue();
+        dialog.show(taskSelectorView.getTSVfragmentManager(), "example dialog");
+    }
 }

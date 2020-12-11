@@ -107,6 +107,7 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
 
 
     public void openDialog() {
+        EnterActivityNameDialogue.setNewItemOrRenameFalse();
         EnterActivityNameDialogue dialog = new EnterActivityNameDialogue();
         dialog.show(taskSelectorView.getTSVfragmentManager(), "example dialog");
     }

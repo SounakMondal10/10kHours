@@ -24,6 +24,18 @@ import java.util.ArrayList;
 public class EnterActivityNameDialogue extends DialogFragment {
     public String taskName;
     public static ArrayList<Data> dataDialogue = new ArrayList<>();
+    public int position;
+    public static boolean newItemOrRename = false; //true for new item, false for rename
+
+    public static void setNewItemOrRename()
+    {
+        newItemOrRename = true;
+    }
+    public static void setNewItemOrRenameFalse()
+    {
+        newItemOrRename = false;
+    }
+
 
     @NonNull
     @Override
@@ -44,8 +56,19 @@ public class EnterActivityNameDialogue extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String taskName = taskNameET.getText().toString();
-                        int position = taskSelectorView.getTaskPosition();
-                        dataDialogue.get(position).setTaskName(taskName);
+
+
+                        if(newItemOrRename == true)
+                        {
+                            dataDialogue.add(dataDialogue.size(),new Data(taskName,1));
+
+                        }
+
+                        else {
+                            position = taskSelectorView.getTaskPosition();
+                            dataDialogue.get(position).setTaskName(taskName);
+                            newItemOrRename = true;
+                        }
                         //rename taskname in main ArrayList<Data>
                         EventBus.getDefault().post(new TaskSelectorAdapter.DataSync(dataDialogue)); //possible source of error maybe?
                     }
