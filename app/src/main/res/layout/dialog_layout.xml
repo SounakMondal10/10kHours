@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <EditText
-        android:id="@+id/etComments"
+        android:id="@+id/taskNameET"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="top"

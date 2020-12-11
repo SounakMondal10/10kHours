@@ -12,9 +12,11 @@ import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sounakmondal.a10khours.Data;
+import com.sounakmondal.a10khours.Dialogues.EnterActivityNameDialogue;
 import com.sounakmondal.a10khours.Fragments.taskSelectorView;
 import com.sounakmondal.a10khours.MainActivity;
 import com.sounakmondal.a10khours.R;
@@ -23,7 +25,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHolder>  {
+public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHolder>  implements EnterActivityNameDialogue.EnterActivityNameDialogueListener {
     public static ArrayList<Data> data1;
     public onTaskListener onTaskListener;
     public Context mContext;
@@ -82,6 +84,12 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
                                 notifyDataSetChanged();
                                 //handle menu2 click
                                 return true;
+
+                            case R.id.renameTaskID:
+                                //add functionality
+                                openDialog();
+                                return true;
+
                             default:
                                 return false;
                         }
@@ -94,6 +102,13 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
         });
 
 
+    }
+
+
+
+    public void openDialog() {
+        EnterActivityNameDialogue dialog = new EnterActivityNameDialogue();
+        dialog.show(taskSelectorView.getTSVfragmentManager(), "example dialog");
     }
 
     public String hoursLeft(int hoursCompleted)
@@ -149,6 +164,12 @@ public class TaskSelectorAdapter extends RecyclerView.Adapter<TaskSelectorViewHo
             return 0;
         }
         return getData().size();
+    }
+
+
+    @Override
+    public void applyTaskName(String taskName, int position) {
+        setData(position,taskName,getData().get(position).getTimeSpent());
     }
 
     //EVENTBUS POJO CLASS (STEP-1)

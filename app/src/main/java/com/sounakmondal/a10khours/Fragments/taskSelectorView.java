@@ -1,5 +1,6 @@
 package com.sounakmondal.a10khours.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +49,9 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
     public TaskSelectorAdapter adapter;
     ViewPager pager;
     RecyclerView taskSelectorRecyclerView;
+    public static Context mContext;
+    public static Activity mActivity;
+    public static FragmentManager fragmentManager;
 
 
     public static taskSelectorView newInstance() {
@@ -61,8 +65,9 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mLayoutInflater = inflater;
 //        rootView = inflater.inflate(R.layout.activity_main,container,false);
-
         rootView = inflater.inflate(R.layout.task_selector_layout,container,false);
+        mContext = rootView.getContext();
+        fragmentManager = getFragmentManager();
         taskSelectorRecyclerView = rootView.findViewById(R.id.task_selector_layoutID);
         pager = rootView.findViewById(R.id.main_viewPager);
         data = TaskSelectorAdapter.getData();
@@ -85,9 +90,12 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
         return taskSelectorRecyclerView;
     }
 
+    public static int TaskDataPosition = 0;
+
     @Override
     public void onTaskClick(int position) {
         data.get(position);
+        TaskDataPosition = position;
         Toast.makeText(getContext(), "Task Selected", Toast.LENGTH_SHORT).show();
         Log.i("TSV","OnTaskClick Executed");
         //add function to get data(position) for changing timer view
@@ -105,6 +113,17 @@ public class taskSelectorView extends Fragment implements TaskSelectorAdapter.on
 //        fragmentTransaction.addToBackStack(null);
 //        fragmentTransaction.commit();
     }
+
+    public static int getTaskPosition()
+    {
+        return TaskDataPosition;
+    }
+
+    public static FragmentManager getTSVfragmentManager()
+    {
+        return fragmentManager;
+    }
+
 
 
 //        final View view = mLayoutInflater.inflate(R.layout.dialog_layout, null);
