@@ -71,7 +71,7 @@ public class timerView extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Timer Started", Toast.LENGTH_SHORT).show();
+
                 startTimer();
             }
         });
@@ -107,8 +107,16 @@ public class timerView extends Fragment {
 
 
 
-    public void startTimer()
+    public boolean startTimer()
     {
+        if(taskChosen == false)
+        {
+            Toast.makeText(getContext(), "Select a task", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+        
+        Toast.makeText(getContext(), "Timer Started", Toast.LENGTH_SHORT).show();
         if(firstTime == true)
             {
                 startTime = System.currentTimeMillis();
@@ -149,7 +157,7 @@ public class timerView extends Fragment {
             }, 0, 1000);
 
         }
-
+    return true;
 
 
 
@@ -253,6 +261,7 @@ public class timerView extends Fragment {
 
     public static Data taskDetails1;
     public static int pos;
+    public static boolean taskChosen = false;
 
 
     public static void setTimeFromTask(Data taskDetails, int position)
@@ -260,6 +269,7 @@ public class timerView extends Fragment {
         taskDetails1 = taskDetails;
         taskNameText.setText(taskDetails.getTaskName());
         taskTimeCompleted = taskDetails.getTimeSpent();
+        taskChosen = true;
 
 
         // temporarily changing timer time to whatever it is of the selected task
