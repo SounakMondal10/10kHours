@@ -60,7 +60,7 @@ public class EnterActivityNameDialogue extends DialogFragment {
 
                         if(newItemOrRename == true)
                         {
-                            dataDialogue.add(dataDialogue.size(),new Data(taskName,1));
+                            dataDialogue.add(dataDialogue.size(),new Data(taskName,0));
 
                         }
 
