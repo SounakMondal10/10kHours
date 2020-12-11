@@ -62,8 +62,15 @@ public class timerView extends Fragment {
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(taskChosen == false)
+                {
+                    Toast.makeText(getContext(), "Select a task", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    {
                 Intent intent = new Intent(inflater.getContext(), StatsActivity.class);
                 startActivity(intent);
+                    }
             }
         });
 
