@@ -45,6 +45,7 @@ public class EnterActivityNameDialogue extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_layout, null);
         dataDialogue = TaskSelectorAdapter.getData();
         final EditText taskNameET = view.findViewById(R.id.taskNameET);
+
         builder.setView(view)
                 .setTitle("Set Task Name")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
